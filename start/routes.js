@@ -17,7 +17,7 @@
 const Route = use('Route')
 
 Route.get('/api', ({ response }) => {
-    response.send("esta es la api")
+    response.send({message:"esta es la api"})
 })
 
 Route.on('/').render('welcome')
