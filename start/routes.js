@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.get('/', ({ response }) => {
+Route.get('/api', ({ response }) => {
     response.send("esta es la api")
 })
 
