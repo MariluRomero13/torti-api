@@ -20,4 +20,8 @@ Route.get('/', () => {
     return Response.json({hola: 'esta es la api'})
 })
 
+Route.get('/example', () => {
+    return Response.json({hola: 'esta es la api'})
+})
+
 Route.on('/').render('welcome')
