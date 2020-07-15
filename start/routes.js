@@ -26,6 +26,9 @@ Route.group(() => {
   Route.post('/logout', 'AuthController.logout')
     .validator('Auth/LoginRefresh')
   Route.post('/change/password', 'AuthController.changePassword')
-    .validator('Auth/Password')
+    .validator('Auth/Password').middleware(['auth:jwt'])
+
+  // Dashboard
+  Route.get('/dashboard', 'DashboardController.index').middleware(['auth:jwt'])
 
 }).middleware(['cors']).prefix('api/')
