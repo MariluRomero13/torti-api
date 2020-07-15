@@ -14,7 +14,7 @@ class EmployeesSchema extends Schema {
       table.string('maternal', 80)
       table.string('phone', 15)
       table.text('address')
-      table.boolean("is_active").notNullable().defaultTo(false)
+      table.boolean("is_active").notNullable().defaultTo(true)
       table.timestamps()
     })
   }

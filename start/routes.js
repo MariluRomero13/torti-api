@@ -21,3 +21,15 @@ Route.get('/api', ({ response }) => {
 })
 
 Route.on('/').render('welcome')
+
+
+Route.group(() => {
+  // Login
+
+  Route.post('/login', 'AuthController.login').validator('Auth/Login')
+  Route.post('/login/refresh-token', 'AuthController.generateTokenWithRefresh')
+    .validator('Auth/LoginRefresh')
+  Route.post('/logout', 'AuthController.logout')
+    .validator('Auth/LoginRefresh')
+
+}).middleware(['cors']).prefix('api/')

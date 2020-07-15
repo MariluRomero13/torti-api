@@ -5,13 +5,13 @@ const Model = use('Model')
 
 class Employee extends Model {
 
-    user() {
-        return this.belongsTo('App/Models/User', 'user_id')
-    }
+  user() {
+    return this.belongsTo('App/Models/User', 'user_id')
+  }
 
-    role() {
-        return this.belongsTo('App/Models/Role', 'role_id')
-    }
+  role() {
+    return this.belongsTo('App/Models/Role', 'role_id')
+  }
 }
 
 module.exports = Employee

@@ -1,0 +1,46 @@
+{
+  "roles": [
+    {
+      "name": "Administrador"
+    },
+    {
+      "name": "Repartidor"
+    }
+  ],
+  "users": [
+    {
+      "username": "Administrador",
+      "email": "admin@example.com",
+      "password": "1234",
+      "is_active": true
+    },
+    {
+      "username": "Repartidor",
+      "email": "repartidor@example.com",
+      "password": "1234",
+      "is_active": true
+    }
+  ],
+  "employees": [
+    {
+      "user_id": 1,
+      "role_id": 1,
+      "name": "Misael",
+      "paternal": "De la Torreo",
+      "maternal": "Gurrola",
+      "phone": "8709123456",
+      "address": "Calle La Joya #456 Colonia Sol de Oriente",
+      "is_active": true
+    },
+    {
+      "user_id": 2,
+      "role_id": 2,
+      "name": "Pablo",
+      "paternal": "Esquivel",
+      "maternal": "Martínez",
+      "phone": "8712455986",
+      "address": "Calle La Joya #456 Colonia Sol de Oriente",
+      "is_active": true
+    }
+  ]
+}
