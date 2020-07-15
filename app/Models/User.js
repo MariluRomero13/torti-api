@@ -25,6 +25,14 @@ class User extends Model {
     return ['password']
   }
 
+  static get changePassword () {
+    return [
+      'user',
+      'password',
+      'newPassword'
+    ]
+  }
+
   tokens () {
     return this.hasMany('App/Models/Token')
   }
