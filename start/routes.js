@@ -33,6 +33,7 @@ Route.group(() => {
 // Routes of panel
 Route.group(() => {
   Route.get('/dashboard', 'DashboardController.index')
+  Route.get('/roles', 'RoleController.index')
   Route.resource('employees', 'EmployeeController').validator(new Map([
     [['employees.store'], ['Employee/StoreEmployee']],
     [['employees.update'], ['Employee/UpdateEmployee']]
