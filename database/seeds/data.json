@@ -5,6 +5,12 @@
     },
     {
       "name": "Repartidor"
+    },
+    {
+      "name": "Cocinero"
+    },
+    {
+      "name": "Otro"
     }
   ],
   "users": [

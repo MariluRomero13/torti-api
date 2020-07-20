@@ -33,6 +33,18 @@ class User extends Model {
     ]
   }
 
+  static get store() {
+    return [
+      'username',
+      'email',
+      'password'
+    ]
+  }
+
+  static get update() {
+    return this.store
+  }
+
   tokens () {
     return this.hasMany('App/Models/Token')
   }

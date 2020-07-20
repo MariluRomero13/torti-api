@@ -12,6 +12,21 @@ class Employee extends Model {
   role() {
     return this.belongsTo('App/Models/Role', 'role_id')
   }
+
+  static get store() {
+    return [
+      'role_id',
+      'name',
+      'paternal',
+      'maternal',
+      'phone',
+      'address'
+    ]
+  }
+
+  static get update() {
+    return this.store
+  }
 }
 
 module.exports = Employee

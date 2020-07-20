@@ -28,7 +28,15 @@ Route.group(() => {
   Route.post('/change/password', 'AuthController.changePassword')
     .validator('Auth/Password').middleware(['auth:jwt'])
 
-  // Dashboard
-  Route.get('/dashboard', 'DashboardController.index').middleware(['auth:jwt'])
-
 }).middleware(['cors']).prefix('api/')
+
+// Routes of panel
+Route.group(() => {
+  Route.get('/dashboard', 'DashboardController.index')
+  Route.resource('employees', 'EmployeeController').validator(new Map([
+    [['employees.store'], ['Employee/StoreEmployee']],
+    [['employees.update'], ['Employee/UpdateEmployee']]
+  ]))
+})
+  .middleware(['auth:jwt', 'cors'])
+  .prefix('api/')
