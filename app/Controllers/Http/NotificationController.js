@@ -15,8 +15,8 @@ class NotificationController {
     const notification = new Notification()
     notification.user_id = user.id
     notification.description = request.input('description')
-    const newNotification = await notification.save()
-    this.sendNotification(newNotification)
+    await notification.save()
+    this.sendNotification()
     return response.ok({
       success: true,
       mesaage: 'Notification added succesfully'
@@ -33,7 +33,7 @@ class NotificationController {
       .topic('notification')
 
     if (notificationTopic) {
-      notificationTopic.broadcast('new:notification', notification)
+      notificationTopic.broadcast('new:notification')
     }
   }
 
