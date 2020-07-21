@@ -12,8 +12,8 @@ class Role extends Model {
     return null;
   }
 
-  user () {
-    return this.belongsTo('App/Models/Role', 'role_id', 'id')
+  employee () {
+    return this.belongsTo('App/Models/Employees/Employee', 'role_id', 'id')
   }
 
 }

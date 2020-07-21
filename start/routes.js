@@ -34,6 +34,9 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/dashboard', 'DashboardController.index')
   Route.get('/roles', 'RoleController.index')
+  Route.get('/notifications', 'NotificationController.index')
+  Route.post('/notifications', 'NotificationController.store')
+  Route.get('/notifications/:id', 'NotificationController.show')
   Route.resource('employees', 'EmployeeController').validator(new Map([
     [['employees.store'], ['Employee/StoreEmployee']],
     [['employees.update'], ['Employee/UpdateEmployee']]

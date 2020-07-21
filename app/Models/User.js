@@ -53,6 +53,10 @@ class User extends Model {
     return this.hasOne('App/Models/Employees/Employee', 'id', 'user_id')
   }
 
+  notification() {
+    return this.hasMany('App/Models/Notification', 'user_id')
+  }
+
 }
 
 module.exports = User
