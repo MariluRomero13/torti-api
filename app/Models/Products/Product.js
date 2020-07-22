@@ -4,6 +4,16 @@
 const Model = use('Model')
 
 class Product extends Model {
+  static get store() {
+    return [
+      'name',
+      'unit_price'
+    ]
+  }
+
+  static get update() {
+    return this.store
+  }
 }
 
 module.exports = Product

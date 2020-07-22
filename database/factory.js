@@ -42,3 +42,10 @@ Factory.blueprint('App/Models/Employees/Employee', (faker, i, data) => {
     is_active: data.is_active
   }
 })
+
+Factory.blueprint('App/Models/Products/Product', (faker, i, data) => {
+  return {
+    name: data.name,
+    price: data.price
+  }
+})

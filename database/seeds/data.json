@@ -48,5 +48,19 @@
       "address": "Calle La Joya #456 Colonia Sol de Oriente",
       "is_active": true
     }
+  ],
+  "products": [
+    {
+      "name": "Tortillas",
+      "unit_price": 17.50
+    },
+    {
+      "name": "Frijoles",
+      "unit_price": 15
+    },
+    {
+      "name": "Salsa roja",
+      "unit_price": 10
+    }
   ]
 }

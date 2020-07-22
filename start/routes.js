@@ -40,6 +40,10 @@ Route.group(() => {
   Route.resource('employees', 'EmployeeController').validator(new Map([
     [['employees.store'], ['Employee/StoreEmployee']],
     [['employees.update'], ['Employee/UpdateEmployee']]
+  ])),
+  Route.resource('products', 'ProductController').validator(new Map([
+    [['products.store'], ['Product/StoreProduct']],
+    [['products.update'], ['Product/UpdateProduct']]
   ]))
 })
   .middleware(['auth:jwt', 'cors'])
