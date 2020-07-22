@@ -46,6 +46,24 @@ Factory.blueprint('App/Models/Employees/Employee', (faker, i, data) => {
 Factory.blueprint('App/Models/Products/Product', (faker, i, data) => {
   return {
     name: data.name,
-    price: data.price
+    unit_price: data.unit_price
+  }
+})
+
+Factory.blueprint('App/Models/Customers/Customer', (faker, i, data) => {
+  return {
+    name: data.name,
+    phone: data.phone,
+    address: data.address,
+    latitude: data.latitude,
+    longitude: data.longitude
+  }
+})
+
+
+Factory.blueprint('App/Models/Customers/AssignCustomer', (faker, i, data) => {
+  return {
+    employee_id: data.employee_id,
+    customer_id: data.customer_id
   }
 })

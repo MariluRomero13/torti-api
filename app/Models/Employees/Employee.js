@@ -13,6 +13,10 @@ class Employee extends Model {
     return this.belongsTo('App/Models/Role', 'role_id')
   }
 
+  assignCustomer () {
+    return this.hasMany('App/Models/Customers/AssignmentCustomer', 'id', 'employee_id')
+  }
+
   static get store() {
     return [
       'role_id',

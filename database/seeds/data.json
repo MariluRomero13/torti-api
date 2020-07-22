@@ -62,5 +62,27 @@
       "name": "Salsa roja",
       "unit_price": 10
     }
+  ],
+  "customers": [
+    {
+      "name": "Tiendita Cecilia",
+      "phone": "8711787974",
+      "address": "Calle Aztecas #322 Colonia Carolinas",
+      "latitude": "25.5543392",
+      "longitude":"-103.4174128"
+    },
+    {
+      "name": "Tiendita Limones 2",
+      "phone": "8711454647",
+      "address": "Calle Aztecas #322 Colonia Carolinas",
+      "latitude": "25.5543392",
+      "longitude":"-103.4174128"
+    }
+  ],
+  "assignCustomers": [
+    {
+      "employee_id": 2,
+      "customer_id": 1
+    }
   ]
 }

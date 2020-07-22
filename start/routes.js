@@ -45,6 +45,11 @@ Route.group(() => {
     [['products.store'], ['Product/StoreProduct']],
     [['products.update'], ['Product/UpdateProduct']]
   ]))
+  Route.resource('assignment-customers', 'AssignCustomerController').validator(new Map([
+    [['assignment-customers.store'], ['AssignCustomer/StoreAssignCustomer']],
+    [['assignment-customers.update'], ['AssignCustomer/UpdateAssignCustomer']]
+  ]))
+  Route.get('unassigned-customers', 'AssignCustomerController.getUnassignedCustomers')
 })
   .middleware(['auth:jwt', 'cors'])
   .prefix('api/')
