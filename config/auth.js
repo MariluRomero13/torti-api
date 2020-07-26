@@ -77,6 +77,18 @@ module.exports = {
     }
   },
 
+  jwtDeliverier: {
+    serializer: 'lucid',
+    model: 'App/Models/User',
+    scheme: 'jwt',
+    uid: 'email',
+    password: 'password',
+    options: {
+      secret: Env.get('APP_KEY_DELIVERIER'),
+      expiresIn: '3h'
+    }
+  },
+
   /*
   |--------------------------------------------------------------------------
   | Api

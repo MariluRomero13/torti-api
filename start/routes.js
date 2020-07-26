@@ -53,3 +53,8 @@ Route.group(() => {
 })
   .middleware(['auth:jwt', 'cors'])
   .prefix('api/')
+
+
+
+//Routes for mobile app
+require('./routes/deliverier')
