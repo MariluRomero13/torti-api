@@ -12,3 +12,11 @@ Route.group(() => {
 })
 .namespace('Deliverier')
 .prefix('api/deliverier')
+
+Route.group(() => {
+    Route.get('assignment-customers', 'AssignmentCustomerController.index')
+})
+.middleware('auth:jwtDeliverier')
+.namespace('Deliverier')
+.prefix('api/deliverier')
+
