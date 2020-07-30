@@ -19,7 +19,7 @@ class AssignCustomerSeeder {
 
   static async _run() {
     for (const assignCustomer of assignCustomers) {
-      await Factory.model('App/Models/Customers/AssignCustomer').create(assignCustomer)
+      await Factory.model('App/Models/Customers/AssignmentCustomer').create(assignCustomer)
     }
   }
 }

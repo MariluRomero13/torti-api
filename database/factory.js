@@ -61,7 +61,7 @@ Factory.blueprint('App/Models/Customers/Customer', (faker, i, data) => {
 })
 
 
-Factory.blueprint('App/Models/Customers/AssignCustomer', (faker, i, data) => {
+Factory.blueprint('App/Models/Customers/AssignmentCustomer', (faker, i, data) => {
   return {
     employee_id: data.employee_id,
     customer_id: data.customer_id
