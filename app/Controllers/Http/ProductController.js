@@ -47,6 +47,9 @@ class ProductController {
       data: ''
     })
   }
+  async methdo({ params }) {
+
+  }
 }
 
 module.exports = ProductController
