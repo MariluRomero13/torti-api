@@ -17,6 +17,10 @@ class Employee extends Model {
     return this.hasMany('App/Models/Customers/AssignmentCustomer', 'id', 'employee_id')
   }
 
+  assignmentProducts() {
+    return this.hasMany('App/Models/Products/AssignmentProduct', 'id', 'employee_id')
+  }
+
   static get store() {
     return [
       'role_id',

@@ -4,6 +4,11 @@
 const Model = use('Model')
 
 class Product extends Model {
+
+  stock() {
+    return this.hasOne('App/Models/Products/Product')
+  }
+
   static get store() {
     return [
       'name',

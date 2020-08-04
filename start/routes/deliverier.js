@@ -14,7 +14,9 @@ Route.group(() => {
 .prefix('api/deliverier')
 
 Route.group(() => {
-    Route.get('assignment-customers', 'AssignmentCustomerController.index')
+    Route.get('/assignment-customers', 'AssignmentCustomerController.index')
+    Route.get('/assignment-products', 'AssignmentProductController.index')
+    Route.post('/sale', 'SaleController.store')
 })
 .middleware('auth:jwtDeliverier')
 .namespace('Deliverier')
