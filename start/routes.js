@@ -40,7 +40,7 @@ Route.group(() => {
   Route.resource('employees', 'EmployeeController').validator(new Map([
     [['employees.store'], ['Employee/StoreEmployee']],
     [['employees.update'], ['Employee/UpdateEmployee']]
-  ])),
+  ]))
   Route.resource('products', 'ProductController').validator(new Map([
     [['products.store'], ['Product/StoreProduct']],
     [['products.update'], ['Product/UpdateProduct']]
@@ -48,6 +48,10 @@ Route.group(() => {
   Route.resource('assignment-customers', 'AssignCustomerController').validator(new Map([
     [['assignment-customers.store'], ['AssignCustomer/StoreAssignCustomer']],
     [['assignment-customers.update'], ['AssignCustomer/UpdateAssignCustomer']]
+  ]))
+  Route.resource('customers','CustomerController').validator(new Map([
+    [['customer.store'],['Customer/StoreUpdateCustomer']],
+    [['customer.update'],['Customer/StoreUpdateCustomer']]
   ]))
   Route.get('unassigned-customers', 'AssignCustomerController.getUnassignedCustomers')
 })
