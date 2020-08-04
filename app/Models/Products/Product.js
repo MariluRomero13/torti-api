@@ -6,7 +6,7 @@ const Model = use('Model')
 class Product extends Model {
 
   stock() {
-    return this.hasOne('App/Models/Products/Product')
+    return this.hasOne('App/Models/Products/Stock')
   }
 
   static get store() {

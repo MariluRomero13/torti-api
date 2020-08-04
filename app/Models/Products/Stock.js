@@ -10,7 +10,7 @@ class Stock extends Model {
     }
 
     product() {
-        return this.belongsTo('App/Models/Products/Product')
+        return this.belongsTo('App/Models/Products/Product', 'product_id', 'id')
     }
 }
 
