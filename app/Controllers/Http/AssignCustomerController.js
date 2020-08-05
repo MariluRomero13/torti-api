@@ -20,14 +20,12 @@ class AssignCustomerController {
   }
 
   async store ({ request, response }) {
-    const customers = request.input('customers', [])
-    const customersArray = JSON.parse(customers);
+    const customers = request.input('customers')
     const employee = await Employee.find(request.input('employee_id'))
-
-    for (let index = 0; index < customersArray.length; index++) {
+    for (let index = 0; index < customers.length; index++) {
       const assignCustomer = new AssignCustomer()
       assignCustomer.employee_id = employee.id
-      assignCustomer.customer_id = customersArray[index]
+      assignCustomer.customer_id = customers[index]
       await assignCustomer.save()
     }
 
@@ -46,12 +44,7 @@ class AssignCustomerController {
 
   async update ({ params, request, response }) {
     await AssignCustomer.query().where('employee_id', params.id).delete()
-    await this.store({ request, response })
-    return response.ok({
-      status: true,
-      message: 'Assignment updated successfully',
-      data: {}
-    })
+    return await this.store({ request, response })
   }
 
   async destroy ({ params, response }) {

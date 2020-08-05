@@ -1,92 +1,48 @@
 'use strict'
-
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with customers
- */
+const Customer = use('App/Models/Customers/Customer')
 class CustomerController {
-  /**
-   * Show a list of all customers.
-   * GET customers
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+
   async index ({ request, response, view }) {
+    const customers = await Customer.all()
+    return response.ok(customers)
   }
 
-  /**
-   * Render a form to be used for creating a new customer.
-   * GET customers/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
-  /**
-   * Create/save a new customer.
-   * POST customers
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async store ({ request, response }) {
+    const customerData = request.only(Customer.store)
+    const customer = await Customer.create(customerData)
+    return response.ok({
+      success: true,
+      message: 'Customer added succesfully',
+      data: customer
+    })
   }
 
-  /**
-   * Display a single customer.
-   * GET customers/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
   async show ({ params, request, response, view }) {
+    const customer = await Customer.find(params.id)
+    return response.ok(customer)
   }
 
-  /**
-   * Render a form to update an existing customer.
-   * GET customers/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
-
-  /**
-   * Update customer details.
-   * PUT or PATCH customers/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async update ({ params, request, response }) {
+    const customerData = request.only(Customer.update)
+    const customer = await Customer.find(params.id)
+    customer.merge(customerData)
+    await customer.save()
+    return response.ok({
+      success:true,
+      message:'Customer updated successfully',
+      data:customer
+    })
   }
 
-  /**
-   * Delete a customer with id.
-   * DELETE customers/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+
   async destroy ({ params, request, response }) {
+    const customer = await Customer.find(params.id)
+    customer.is_active = !customer.is_active
+    await customer.save()
+    return response.ok({
+      success: true,
+      message: 'Customer deleted success'
+    })
   }
 }
 
