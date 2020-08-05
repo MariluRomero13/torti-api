@@ -14,6 +14,7 @@ Route.group(() => {
 .prefix('api/deliverier')
 
 Route.group(() => {
+    Route.put('/update-password', 'UserController.update')
     Route.get('/assignment-customers', 'AssignmentCustomerController.index')
     Route.get('/assignment-products', 'AssignmentProductController.index')
     Route.post('/sales', 'SaleController.store')
