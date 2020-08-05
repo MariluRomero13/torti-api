@@ -39,24 +39,6 @@ class UserController {
             message: 'Password has been updated'
         })
     }
-
-
-    async validateFields(request, response) {
-        const rules = {
-            password: 'required',
-            new_password: 'required'
-        }
-
-        const validation = await validate(request.all(), rules)
-
-        if(validation.fails()) {
-            return response.badRequest({
-                status: false,
-                message: "Incomplete fields"
-            })
-        }
-        return false
-    }
 }
 
 
