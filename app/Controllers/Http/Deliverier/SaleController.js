@@ -3,6 +3,7 @@ const AssignmentCustomer = use('App/Models/Customers/AssignmentCustomer')
 const Database = use('Database')
 const Sale = use('App/Models/Sales/Sale')
 const Product = use('App/Models/Products/Product')
+const moment = use('moment')
 
 class SaleController {
     async store ({ request, response, auth }) {
@@ -14,7 +15,7 @@ class SaleController {
             const stock = await product.stock()
                 .select('actual_stock').first()
             const quantity = detail.quantity
-            if (quantity > stock.actual_stock) {
+            if (stock === null || quantity > stock.actual_stock) {
                 return response.conflict({
                     status: false,
                     message: "There are insufficient products"
@@ -61,11 +62,35 @@ class SaleController {
             })
         } catch(err) {
             await trx.rollback()
-            console.log(err);
+            console.log(err)
             return response.badRequest()
         }
         
     }
+
+
+    async getSalesHistory({ request, response, auth }) {
+        try {
+            const now = moment()
+            const today = now.format()
+            const monthAgo = now.subtract(1, 'months').format()
+            const status = request.input('status')
+            const assignment = await AssignmentCustomer.query()
+                .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
+                .first()
+            const sales = await Sale.query()
+                .where({ assignments_customers_id: assignment.id, status})
+                .whereBetween('created_at', [monthAgo, today])
+                .with('details').fetch()
+            return response.ok(sales)
+        } catch (error) {
+            console.log(error);
+            return response.badRequest()
+        }
+        
+    }
+
+
 }
 
 module.exports = SaleController
