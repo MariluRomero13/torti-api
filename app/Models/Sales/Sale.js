@@ -6,7 +6,15 @@ const Model = use('Model')
 class Sale extends Model {
 
     details() {
-        return this.hasMany('App/Models/Sales/SaleDetail')
+      return this.hasMany('App/Models/Sales/SaleDetail')
+    }
+
+    lost_products() {
+      return this.hasMany('App/Models/Products/LostProduct')
+    }
+
+    assignment() {
+      return this.belongsTo('App/Models/Customers/AssignmentCustomerDetail', 'assignments_customers_details_id')
     }
 
 

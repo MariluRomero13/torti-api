@@ -54,6 +54,16 @@ Route.group(() => {
     [['customer.update'],['Customer/StoreUpdateCustomer']]
   ]))
   Route.get('unassigned-customers', 'AssignCustomerController.getUnassignedCustomers')
+
+  // Deliveries
+  Route.get('daily-deliveries', 'DeliveryController.getDailyDeliveries')
+  Route.get('record-deliveries', 'DeliveryController.getRecordDeliveries')
+  Route.get('future-deliveries', 'DeliveryController.getFutureDeliveries')
+  Route.get('sold-products/:id', 'DeliveryController.getSoldProducts')
+  Route.resource('deliveries','DeliveryController').validator(new Map([
+    [['deliveries.store'],['Delivery/StoreUpdateDelivery']],
+    [['deliveries.update'],['Delivery/StoreUpdateDelivery']]
+  ]))
 })
   .middleware(['auth:jwt', 'cors'])
   .prefix('api/')

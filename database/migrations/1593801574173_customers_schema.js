@@ -12,7 +12,7 @@ class CustomersSchema extends Schema {
       table.text('address')
       table.decimal('latitude',10,7).notNullable()
       table.decimal('longitude', 10, 7).notNullable()
-      table.boolean('is_active').notNullable().defaultTo(false)
+      table.boolean('is_active').notNullable().defaultTo(true)
       table.timestamps()
     })
   }

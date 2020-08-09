@@ -24,7 +24,9 @@ class AssignmentCustomer extends Model {
     return this.belongsTo('App/Models/Customers/Customer', 'customer_id')
   }
 
-
+  details() {
+    return this.hasMany('App/Models/Customers/AssignmentCustomerDetail', 'id', 'assignments_customers_id')
+  }
 }
 
 module.exports = AssignmentCustomer

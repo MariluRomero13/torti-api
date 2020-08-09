@@ -9,7 +9,7 @@ class AssingmentsCustomersDetailsSchema extends Schema {
       table.bigIncrements()
       table.bigInteger('assignments_customers_id').unsigned().references('id').inTable('assignments_customers')
       table.date('delivery_date')
-      table.boolean('status')
+      table.integer('status').defaultTo(0)
       table.timestamps()
     })
   }

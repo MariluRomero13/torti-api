@@ -59,7 +59,7 @@ class AssignCustomerController {
   }
 
   async getUnassignedCustomers({ response }) {
-    const customers = await Customer.query().whereDoesntHave('assignCustomer').fetch()
+    const customers = await Customer.query().whereDoesntHave('assignCustomer').where('is_active', 1).fetch()
     return response.ok(customers)
   }
 }
