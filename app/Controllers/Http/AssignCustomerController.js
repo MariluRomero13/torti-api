@@ -38,6 +38,7 @@ class AssignCustomerController {
 
   async show ({ params, response }) {
     const employee = await Employee.query().with('assignCustomer').with('assignCustomer.customers')
+                      .with('assignCustomer.details', (builder) => builder.where('status', 0))
                       .where('id', params.id).fetch()
     return response.ok(employee)
   }
@@ -52,7 +53,7 @@ class AssignCustomerController {
     assignment.is_active = !assignment.is_active
     await assignment.save()
     return response.ok({
-      status: true,
+      success: true,
       message: 'Assignment deleted successfully',
       data: {}
     })

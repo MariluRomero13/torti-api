@@ -49,6 +49,12 @@ class DeliveryController {
     })
   }
 
+  async show({ response, params }) {
+    const assignmentDetail = await AssignmentCustomerDetail.query()
+                            .where('assignments_customers_id', params.id).fetch()
+    return response.ok(assignmentDetail)
+  }
+
   async getSoldProducts ({ params, response }) {
     const assignmentDetail = await AssignmentCustomerDetail.find(params.id)
     const sales = await Sale.query()
@@ -80,7 +86,7 @@ class DeliveryController {
   }
 
   async destroy ({ params, response }) {
-    const assignmentDetail = await AssignCustomerDetail.find(params.id)
+    const assignmentDetail = await AssignmentCustomerDetail.find(params.id)
     assignmentDetail.status = 2
     await assignmentDetail.save()
     return response.ok({
