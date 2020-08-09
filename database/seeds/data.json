@@ -25,6 +25,12 @@
       "email": "repartidor@example.com",
       "password": "1234",
       "is_active": true
+    },
+    {
+      "username": "Jose Ramírez",
+      "email": "joseRa@example.com",
+      "password": "1234",
+      "is_active": true
     }
   ],
   "employees": [
@@ -45,6 +51,16 @@
       "paternal": "Esquivel",
       "maternal": "Martínez",
       "phone": "8712455986",
+      "address": "Calle La Joya #456 Colonia Sol de Oriente",
+      "is_active": true
+    },
+    {
+      "user_id": 3,
+      "role_id": 2,
+      "name": "Jose",
+      "paternal": "Ramírez",
+      "maternal": "Montes",
+      "phone": "8712778899",
       "address": "Calle La Joya #456 Colonia Sol de Oriente",
       "is_active": true
     }
@@ -74,7 +90,35 @@
     {
       "name": "Tiendita Limones 2",
       "phone": "8711454647",
-      "address": "Calle Aztecas #322 Colonia Carolinas",
+      "address": "Calle Aztecas #7882 Colonia Carolinas",
+      "latitude": "25.5543392",
+      "longitude":"-103.4174128"
+    },
+    {
+      "name": "Tiendita Limones 3",
+      "phone": "8711454678",
+      "address": "Calle Aztecas #722 Colonia Carolinas",
+      "latitude": "25.5543392",
+      "longitude":"-103.4174128"
+    },
+    {
+      "name": "Tiendita Limones 4",
+      "phone": "8711454679",
+      "address": "Calle Aztecas #522 Colonia Carolinas",
+      "latitude": "25.5543392",
+      "longitude":"-103.4174128"
+    },
+    {
+      "name": "Tiendita Limones 5",
+      "phone": "8711454680",
+      "address": "Calle Aztecas #722 Colonia Carolinas",
+      "latitude": "25.5543392",
+      "longitude":"-103.4174128"
+    },
+    {
+      "name": "Tiendita Limones 6",
+      "phone": "8711454681",
+      "address": "Calle Aztecas #325 Colonia Carolinas",
       "latitude": "25.5543392",
       "longitude":"-103.4174128"
     }
@@ -83,6 +127,86 @@
     {
       "employee_id": 2,
       "customer_id": 1
+    },
+    {
+      "employee_id": 3,
+      "customer_id": 2
+    },
+    {
+      "employee_id": 2,
+      "customer_id": 3
+    }
+  ],
+  "assignCustomersDetails": [
+    {
+      "assignments_customers_id": 1,
+      "delivery_date": "2020-08-09",
+      "status": 1
+    },
+    {
+      "assignments_customers_id": 3,
+      "delivery_date": "2020-08-09",
+      "status": 2
+    },
+    {
+      "assignments_customers_id": 2,
+      "delivery_date": "2020-08-09",
+      "status": 1
+    },
+    {
+      "assignments_customers_id": 1,
+      "delivery_date": "2020-08-10",
+      "status": 0
+    },
+    {
+      "assignments_customers_id": 2,
+      "delivery_date": "2020-08-10",
+      "status": 0
+    }
+  ],
+  "sales": [
+    {
+      "assignments_customers_details_id": 1,
+      "total": 100.00,
+      "credit": 0,
+      "total_to_pay": 100.00,
+      "status": 2
+    },
+    {
+      "assignments_customers_details_id": 2,
+      "total": 700.00,
+      "credit": 700.00,
+      "total_to_pay": 0,
+      "status": 1
+    }
+  ],
+  "sale_details": [
+    {
+      "sale_id": 1,
+      "product_id": 1,
+      "quantity": 10,
+      "total": 100.00
+    },
+    {
+      "sale_id": 2,
+      "product_id": 2,
+      "quantity": 15,
+      "total": 300.00
+    },
+    {
+      "sale_id": 2,
+      "product_id": 3,
+      "quantity": 12,
+      "total": 400.00
+    }
+  ],
+  "lost_products": [
+    {
+      "sale_id": 2,
+      "product_id": 3,
+      "quantity": 2,
+      "description": "El producto tenía moho"
     }
   ]
 }
+

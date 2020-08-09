@@ -67,3 +67,39 @@ Factory.blueprint('App/Models/Customers/AssignmentCustomer', (faker, i, data) =>
     customer_id: data.customer_id
   }
 })
+
+Factory.blueprint('App/Models/Customers/AssignmentCustomerDetail', (faker, i, data) => {
+  return {
+    assignments_customers_id: data.assignments_customers_id,
+    delivery_date: data.delivery_date,
+    status: data.status
+  }
+})
+
+Factory.blueprint('App/Models/Sales/Sale', (faker, i, data) => {
+  return {
+    assignments_customers_details_id: data.assignments_customers_details_id,
+    total: data.total,
+    credit: data.credit,
+    total_to_pay: data.total_to_pay,
+    status: data.status
+  }
+})
+
+Factory.blueprint('App/Models/Sales/SaleDetail', (faker, i, data) => {
+  return {
+    sale_id: data.sale_id,
+    product_id: data.product_id,
+    quantity: data.quantity,
+    total: data.total
+  }
+})
+
+Factory.blueprint('App/Models/Products/LostProduct', (faker, i, data) => {
+  return {
+    sale_id: data.sale_id,
+    product_id: data.product_id,
+    quantity: data.quantity,
+    description: data.description
+  }
+})
