@@ -70,19 +70,16 @@ class SaleController {
 
 
     async getSalesHistory({ request, response, auth }) {
-        try {
-            const now = moment()
-            const today = now.format()
-            const monthAgo = now.subtract(1, 'months').format()
-            const status = request.input('status')
-            const assignment = await AssignmentCustomer.query()
-                .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
-                .first()
-            const sales = await Sale.query()
-                .where({ assignments_customers_id: assignment.id, status})
-                .whereBetween('created_at', [monthAgo, today])
-                .with('details').fetch()
-            return response.ok(sales)
+        try{
+        const status = request.input('status')
+        const sales = await AssignmentCustomer.query()
+            .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
+            .with('details', builder => {
+                builder.where({ status })
+                .with('sale.details.product')
+            })
+            .first()
+        return response.ok(sales)
         } catch (error) {
             console.log(error);
             return response.badRequest()
