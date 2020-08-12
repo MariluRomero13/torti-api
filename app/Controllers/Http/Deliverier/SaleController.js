@@ -85,7 +85,8 @@ class SaleController {
         try{
         const status = request.input('status')
         const assignment = await AssignmentCustomer.query()
-            .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id }).first()
+            .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
+            .first()
         const sales = await Sale.query()
             .where({ status })
             .whereHas('assignment', builder => {
