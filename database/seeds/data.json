@@ -167,15 +167,15 @@
   "sales": [
     {
       "assignments_customers_details_id": 1,
-      "total": 100.00,
+      "total": 175.00,
       "credit": 0,
       "total_to_pay": 100.00,
       "status": 2
     },
     {
       "assignments_customers_details_id": 2,
-      "total": 700.00,
-      "credit": 700.00,
+      "total": 405.00,
+      "credit": 405.00,
       "total_to_pay": 0,
       "status": 1
     }
@@ -185,19 +185,19 @@
       "sale_id": 1,
       "product_id": 1,
       "quantity": 10,
-      "total": 100.00
+      "total": 175.00
     },
     {
       "sale_id": 2,
       "product_id": 2,
       "quantity": 15,
-      "total": 300.00
+      "total": 225.00
     },
     {
       "sale_id": 2,
       "product_id": 3,
       "quantity": 12,
-      "total": 400.00
+      "total": 180.00
     }
   ],
   "lost_products": [

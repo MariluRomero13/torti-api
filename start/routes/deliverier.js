@@ -18,7 +18,7 @@ Route.group(() => {
     Route.get('/assignment-customers', 'AssignmentCustomerController.index')
     Route.get('/assignment-products', 'AssignmentProductController.index')
     Route.post('/sales', 'SaleController.store')
-    Route.get('/sales-histories', 'SaleController.getSalesHistory')
+    Route.post('/sales-histories', 'SaleController.getSalesHistory')
 })
 .middleware('auth:jwtDeliverier')
 .namespace('Deliverier')
