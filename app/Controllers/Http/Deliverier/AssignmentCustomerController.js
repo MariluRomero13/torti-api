@@ -10,7 +10,7 @@ class AssignmentCustomerController {
         const assignCustomer =  await user.employee()
             .with('assignCustomer', builder => {
                 builder.whereHas('details', builder => {
-                    builder.where({ status: 0 , delivery_date: today})
+                    builder.where({ status: 0 , delivery_date: today })
                 } ,1)
                 .with('customers')
             })

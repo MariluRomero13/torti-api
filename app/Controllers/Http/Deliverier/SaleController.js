@@ -3,6 +3,7 @@ const AssignmentCustomer = use('App/Models/Customers/AssignmentCustomer')
 const Database = use('Database')
 const Sale = use('App/Models/Sales/Sale')
 const Product = use('App/Models/Products/Product')
+const AssignmentDetail = use('App/Models/Customers/AssignmentCustomerDetail')
 const moment = use('moment')
 
 class SaleController {
@@ -33,9 +34,18 @@ class SaleController {
         }
 
         const totalToPay = saleTotal - payment
-        const assignment = await AssignmentCustomer.query()
-            .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
+        const today = moment().format('YYYY-MM-DD')
+        const assignmentDetail = await AssignmentDetail.query()
+            .where({ delivery_date: today })
+            .with('assignment', builder => {
+                builder.where(
+                { 
+                    customer_id: request.input('customer_id'), 
+                    employee_id: auth.user.id
+                })
+            })
             .first()
+        
         let status
         if(totalToPay === 0) {
             status = Sale.status.completed
@@ -45,7 +55,7 @@ class SaleController {
 
         const trx = await Database.beginTransaction()
         const saleData = {
-            assignments_customers_id: assignment.id,
+            assignments_customers_details_id: assignmentDetail.id,
             total,
             credit: payment,
             total_to_pay: totalToPay,
@@ -55,6 +65,8 @@ class SaleController {
         try {
             const sale = await Sale.create(saleData, trx)
             await sale.details().createMany(details, trx)
+            assignmentDetail.status = 1
+            await assignmentDetail.save(trx)
             await trx.commit()
             return response.ok({
                 status: true,
@@ -72,13 +84,16 @@ class SaleController {
     async getSalesHistory({ request, response, auth }) {
         try{
         const status = request.input('status')
-        const sales = await AssignmentCustomer.query()
-            .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
-            .with('details', builder => {
-                builder.where({ status })
-                .with('sale.details.product')
+        const assignment = await AssignmentCustomer.query()
+            .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id }).first()
+        const sales = await Sale.query()
+            .where({ status })
+            .whereHas('assignment', builder => {
+                builder.where({ assignments_customers_id: assignment.id })
             })
-            .first()
+            .with('details.product')
+            .fetch()
+
         return response.ok(sales)
         } catch (error) {
             console.log(error);
