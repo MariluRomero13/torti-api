@@ -103,3 +103,19 @@ Factory.blueprint('App/Models/Products/LostProduct', (faker, i, data) => {
     description: data.description
   }
 })
+
+Factory.blueprint('App/Models/Products/Stock', (faker, i, data) => {
+  return {
+    product_id: data.product_id,
+    initial_stock: data.initial_stock,
+    actual_stock: data.actual_stock
+  }
+})
+
+Factory.blueprint('App/Models/Products/AssignmentProduct', (faker, i, data) => {
+  return {
+    employee_id: data.employee_id,
+    quantity: data.quantity,
+    stock_id: data.stock_id
+  }
+})

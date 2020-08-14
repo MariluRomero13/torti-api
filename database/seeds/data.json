@@ -207,6 +207,20 @@
       "quantity": 2,
       "description": "El producto tenía moho"
     }
+  ],
+  "stocks": [
+    {
+      "product_id": 1,
+      "initial_stock": 100,
+      "actual_stock": 100
+    }
+  ],
+  "assingmentsProducts": [
+    {
+      "employee_id": 2,
+      "quantity": 20,
+      "stock_id": 1
+    }
   ]
 }
 
