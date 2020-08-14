@@ -84,11 +84,15 @@ class SaleController {
 
     async getSalesHistory({ request, response, auth }) {
         try{
+        const now = moment()
+        const today = now.format()
+        const monthAgo = now.subtract(1, 'months').format()
         const status = request.input('status')
         const assignment = await AssignmentCustomer.query()
             .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
             .first()
         const sales = await Sale.query()
+            .whereBetween('created_at', [ monthAgo, today ])
             .where({ status })
             .whereHas('assignment', builder => {
                 builder.where({ assignments_customers_id: assignment.id })
