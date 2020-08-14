@@ -11,6 +11,8 @@ const AssignCustomerDetailSeeder = require('./AssignCustomerDetailSeeder')
 const SaleSeeder = require('./SaleSeeder')
 const SaleDetailSeeder = require('./SaleDetailSeeder')
 const LostProductSeeder = require('./LostProductSeeder')
+const StockSeeder = require('./StockSeeder')
+const AssignProductSeeder = require('./AssignProductSeeder')
 class DataBaseSeeder {
   async run () {
     await RoleSeeder._run()
@@ -23,6 +25,8 @@ class DataBaseSeeder {
     await SaleSeeder._run()
     await SaleDetailSeeder._run()
     await LostProductSeeder._run()
+    await StockSeeder._run()
+    await AssignProductSeeder._run()
   }
 }
 
