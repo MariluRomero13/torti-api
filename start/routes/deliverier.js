@@ -15,7 +15,7 @@ Route.group(() => {
 
 Route.group(() => {
     Route.put('/update-password', 'UserController.update')
-    Route.get('/assignment-customers', 'AssignmentCustomerController.index')
+    Route.route('/assignment-customers', 'AssignmentCustomerController.index', ['GET', 'POST'])
     Route.get('/assignment-products', 'AssignmentProductController.index')
     Route.post('/sales', 'SaleController.store')
     Route.post('/sales-histories', 'SaleController.getSalesHistory')

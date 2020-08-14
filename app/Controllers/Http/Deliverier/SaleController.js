@@ -25,8 +25,8 @@ class SaleController {
             detail.total = parseFloat(product.unit_price * quantity)
         }
 
-        const saleTotal = details.reduce((total, item) => total + item.total, 0)
-        if (total !== saleTotal || payment > saleTotal) {
+        const saleTotal = details.reduce((total, item) => total + +item.total, 0)
+        if (+total !== saleTotal || +payment > saleTotal) {
             return response.conflict({
                 status: false,
                 message: "There are a conflict in sales"
@@ -54,15 +54,16 @@ class SaleController {
         }
 
         const trx = await Database.beginTransaction()
-        const saleData = {
-            assignments_customers_details_id: assignmentDetail.id,
-            total,
-            credit: payment,
-            total_to_pay: totalToPay,
-            status
-        }
 
         try {
+            const saleData = {
+                assignments_customers_details_id: assignmentDetail.id,
+                total,
+                credit: payment,
+                total_to_pay: totalToPay,
+                status
+            }
+
             const sale = await Sale.create(saleData, trx)
             await sale.details().createMany(details, trx)
             assignmentDetail.status = 1
