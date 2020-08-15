@@ -53,6 +53,10 @@ Route.group(() => {
     [['customer.store'],['Customer/StoreUpdateCustomer']],
     [['customer.update'],['Customer/StoreUpdateCustomer']]
   ]))
+  Route.resource('stock','StockController').validator(new Map([
+    [['stock.store'],['Stock/StoreStock']],
+    [['stock.update'],['Stock/UpdateStock']]
+  ]))
   Route.get('unassigned-customers', 'AssignCustomerController.getUnassignedCustomers')
 
   // Deliveries
