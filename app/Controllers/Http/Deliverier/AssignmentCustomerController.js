@@ -1,5 +1,4 @@
 'use strict'
-const Employee = use('App/Models/Employees/Employee')
 const moment = use('moment')
 
 
