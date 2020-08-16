@@ -2,6 +2,7 @@
 const AssignmentCustomer = use('App/Models/Customers/AssignmentCustomer')
 const Database = use('Database')
 const Sale = use('App/Models/Sales/Sale')
+const SaleDetail = use('App/Models/Sales/SaleDetail')
 const Product = use('App/Models/Products/Product')
 const AssignmentDetail = use('App/Models/Customers/AssignmentCustomerDetail')
 const moment = use('moment')
@@ -95,7 +96,7 @@ class SaleController {
     }
 
 
-    async getSalesHistory({ request, response, auth }) {
+    async getSalesHistory ({ request, response, auth }) {
         try{
         const now = moment()
         const today = now.format()
@@ -121,6 +122,57 @@ class SaleController {
         
     }
 
+    async getPendingProducts ({ response, params }) {
+        const products = await Database.table('sales as s')
+            .innerJoin('sale_details as sd', 'sd.sale_id', 's.id')
+            .innerJoin('products as p', 'sd.product_id', 'p.id')
+            .innerJoin('assingments_customers_details as acd', 's.assignments_customers_details_id', 'acd.id')
+            .innerJoin('assignments_customers as ac', 'acd.assignments_customers_id', 'ac.id')
+            .select('sd.quantity', 'p.name', 'sd.total as total_product', 's.credit', 's.total_to_pay', 's.total')
+            .where('s.status', 2)
+            .where('ac.customer_id', params.id)
+
+        return response.ok(products)
+    }
+
+    async liquidateSale ({ request, response }) {
+        const { customer_id, payment } = request.all()
+        const pendingPayments =  await Sale.query()
+            .where('status', 2)
+            .whereHas('assignment.assignment', builder => {
+                builder.where({ customer_id: customer_id })
+            }).first()
+
+        if (pendingPayments) {
+            if (payment > pendingPayments.total_to_pay) {
+                return response.conflict({
+                    status: false,
+                    message: "There are a conflict in sales"
+                }) 
+            } 
+            const sale = await Sale.find(pendingPayments.id)
+            sale.credit = sale.credit + parseFloat(payment)
+            sale.total_to_pay = sale.total - sale.credit
+            await sale.save()
+
+            if (sale.total_to_pay === 0) {
+                sale.status = 3
+                sale.save()
+
+                return response.ok({
+                    status: true,
+                    message: "The payment has been finished"
+                })
+            }
+
+            return response.ok({
+                status: true,
+                message: "The payment has been made"
+            })    
+        }
+
+        
+    }
 
 }
 

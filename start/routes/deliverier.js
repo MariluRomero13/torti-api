@@ -24,6 +24,8 @@ Route.group(() => {
     Route.post('/devolution', 'DevolutionController.store')
         .validator('Product/StoreLostProduct')
     Route.get('/devolution/:id', 'DevolutionController.index')
+    Route.get('/get-pending-products/:id', 'SaleController.getPendingProducts')
+    Route.post('/liquidate-sale', 'SaleController.liquidateSale')
 })
 .middleware('auth:jwtDeliverier')
 .namespace('Deliverier')
