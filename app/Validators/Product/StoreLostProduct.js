@@ -13,10 +13,11 @@ class ProductStoreLostProduct {
 
   get rules () {
     return {
-      sale_id: 'required|integer|exists:sales,id', 
-      product_id: 'required|integer|exists:products,id',
-      quantity: 'required|integer',
-      description: 'required'
+      customer_id: 'required|integer|exists:customers,id',
+      details: 'required|array',
+      'details.*.product_id': 'required|integer|exists:products,id',
+      'details.*.quantity': 'required|integer',
+      'details.*.description': 'required'
     }
   }
 
