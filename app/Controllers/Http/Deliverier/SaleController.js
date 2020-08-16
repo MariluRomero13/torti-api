@@ -8,9 +8,9 @@ const moment = use('moment')
 
 class SaleController {
     async store ({ request, response, auth }) {
-        const { total, payment } = request.all()
+        const { total, payment, customer_id } = request.all()
         const details = request.input('details')
-
+    
         for (const detail of details) {
             const product = await Product.find(detail.product_id)
             const stock = await product.stock()
@@ -24,7 +24,7 @@ class SaleController {
             }
             detail.total = parseFloat(product.unit_price * quantity)
         }
-
+    
         const saleTotal = details.reduce((total, item) => total + +item.total, 0)
         if (+total !== saleTotal || +payment > saleTotal) {
             return response.conflict({
@@ -32,7 +32,7 @@ class SaleController {
                 message: "There are a conflict in sales"
             })
         }
-
+    
         const totalToPay = saleTotal - payment
         const today = moment().format('YYYY-MM-DD')
         const assignmentDetail = await AssignmentDetail.query()
@@ -40,22 +40,41 @@ class SaleController {
             .with('assignment', builder => {
                 builder.where(
                 { 
-                    customer_id: request.input('customer_id'), 
+                    customer_id: customer_id, 
                     employee_id: auth.user.id
                 })
             })
             .first()
         
-        let status
+        let status  
         if(totalToPay === 0) {
             status = Sale.status.completed
         } else if (totalToPay > 0) {
             status = Sale.status.pending
         }
-
-        const trx = await Database.beginTransaction()
-
-        try {
+        console.log(status);
+        
+        const pendingPayments =  await Sale.query()
+            .where('status', 2)
+            .whereHas('assignment.assignment', builder => {
+                builder.where({ customer_id: customer_id })
+            }).first()
+    
+        if (pendingPayments && status === 2) {
+                const sale = await Sale.find(pendingPayments.id)
+                sale.total = sale.total + total
+                sale.credit = sale.credit + payment
+                sale.total_to_pay = sale.total - sale.credit
+                await sale.save()
+    
+                await sale.details().createMany(details)
+                assignmentDetail.status = 1
+                await assignmentDetail.save()
+                return response.ok({
+                    status: true,
+                    message: "Pending payment was succesfully"
+                })
+        } else {
             const saleData = {
                 assignments_customers_details_id: assignmentDetail.id,
                 total,
@@ -63,22 +82,16 @@ class SaleController {
                 total_to_pay: totalToPay,
                 status
             }
-
-            const sale = await Sale.create(saleData, trx)
-            await sale.details().createMany(details, trx)
+    
+            const sale = await Sale.create(saleData)
+            await sale.details().createMany(details)
             assignmentDetail.status = 1
-            await assignmentDetail.save(trx)
-            await trx.commit()
+            await assignmentDetail.save()
             return response.ok({
                 status: true,
-                message: "Sale created succesfully"
+                message: "Sale was succesfully"
             })
-        } catch(err) {
-            await trx.rollback()
-            console.log(err)
-            return response.badRequest()
-        }
-        
+        }       
     }
 
 
