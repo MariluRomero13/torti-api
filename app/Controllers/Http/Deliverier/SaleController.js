@@ -62,8 +62,8 @@ class SaleController {
     
         if (pendingPayments && status === 2) {
                 const sale = await Sale.find(pendingPayments.id)
-                sale.total = sale.total + total
-                sale.credit = sale.credit + payment
+                sale.total = sale.total + parseFloat(total)
+                sale.credit = sale.credit + parseFloat(payment)
                 sale.total_to_pay = sale.total - sale.credit
                 await sale.save()
     
