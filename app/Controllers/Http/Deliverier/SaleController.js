@@ -10,6 +10,7 @@ const moment = use('moment')
 class SaleController {
     async store ({ request, response, auth }) {
         const { total, payment, customer_id } = request.all()
+        console.log(customer_id)
         const details = request.input('details')
     
         for (const detail of details) {
