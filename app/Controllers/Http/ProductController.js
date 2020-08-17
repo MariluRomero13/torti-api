@@ -31,7 +31,15 @@ class ProductController {
   }
 
   async update ({ params, request, response }) {
-     
+    const productData = request.only(Product.update)
+    const product = await Product.find(params.id)
+    product.merge(productData)
+    await product.save()
+    return response.ok({
+      success:true,
+      message:'product updated successfully',
+      data: product
+    })
   }
 
   async destroy ({ params, response }) {
