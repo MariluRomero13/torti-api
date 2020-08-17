@@ -27,6 +27,7 @@ class SaleController {
         }
     
         const saleTotal = details.reduce((total, item) => total + +item.total, 0)
+        console.log(saleTotal)
         if (+total !== saleTotal || +payment > saleTotal) {
             return response.conflict({
                 status: false,
@@ -46,7 +47,6 @@ class SaleController {
                 })
             })
             .first()
-        
         let status  
         if(totalToPay === 0) {
             status = Sale.status.completed
@@ -135,7 +135,7 @@ class SaleController {
         return response.ok({products})
     }
 
-    async liquidateSale ({ request, response }) {
+   /*  async ({ request, response }) {
         const { customer_id, payment } = request.all()
         const pendingPayments =  await Sale.query()
             .where('status', 2)
@@ -169,10 +169,8 @@ class SaleController {
                 status: true,
                 message: "The payment has been made"
             })    
-        }
-
-        
-    }
+        }  
+    } */
 
 }
 

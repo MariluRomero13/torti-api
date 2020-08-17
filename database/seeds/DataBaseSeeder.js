@@ -22,9 +22,9 @@ class DataBaseSeeder {
     await CustomerSeeder._run()
     await AssignCustomerSeeder._run()
     await AssignCustomerDetailSeeder._run()
-    await SaleSeeder._run()
-    await SaleDetailSeeder._run()
-    await LostProductSeeder._run()
+    // await SaleSeeder._run()
+    // await SaleDetailSeeder._run()
+    // await LostProductSeeder._run()
     await StockSeeder._run()
     await AssignProductSeeder._run()
   }

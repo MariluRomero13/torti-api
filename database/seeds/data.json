@@ -141,28 +141,8 @@
     {
       "assignments_customers_id": 1,
       "delivery_date": "2020-08-17",
-      "status": 1
-    },
-    {
-      "assignments_customers_id": 3,
-      "delivery_date": "2020-08-17",
-      "status": 2
-    },
-    {
-      "assignments_customers_id": 2,
-      "delivery_date": "2020-08-17",
-      "status": 1
-    },
-    {
-      "assignments_customers_id": 1,
-      "delivery_date": "2020-08-17",
       "status": 0
-    },
-    {
-      "assignments_customers_id": 3,
-      "delivery_date": "2020-08-17",
-      "status": 0
-    }
+    }  
   ],
   "sales": [
     {
