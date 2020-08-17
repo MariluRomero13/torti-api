@@ -135,7 +135,7 @@ class SaleController {
         return response.ok({products})
     }
 
-   /*  async ({ request, response }) {
+    async liquidateSale ({ request, response }) {
         const { customer_id, payment } = request.all()
         const pendingPayments =  await Sale.query()
             .where('status', 2)
@@ -170,7 +170,7 @@ class SaleController {
                 message: "The payment has been made"
             })    
         }  
-    } */
+    }
 
 }
 
