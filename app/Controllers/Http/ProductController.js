@@ -8,10 +8,17 @@
  * Resourceful controller for interacting with products
  */
 const Product = use('App/Models/Products/Product')
+const moment = use('moment')
+const Database = use('Database')
 class ProductController {
 
   async index ({ response }) {
     const products = await Product.all()
+    return response.ok(products)
+  }
+
+  async indexHasStock ({ response }) {
+    const products = await Product.query().has('stock').with('stock').fetch()
     return response.ok(products)
   }
 
@@ -31,10 +38,19 @@ class ProductController {
     product.merge(productData)
     await product.save()
     return response.ok({
-      success: true,
-      message: 'Product updated successfully',
-      data: ''
+      success:true,
+      message:'product updated successfully',
+      data: product
     })
+  }
+
+  async getProductWithoutStock({ response }) {
+    const products = await Product.query()
+    .whereDoesntHave('stock', (builder) => {
+      builder.where(Database.raw('DATE_FORMAT(created_at, "%Y-%m-%d") = CURRENT_DATE'))
+    })
+    .fetch()
+    return response.ok(products)
   }
 
   async destroy ({ params, response }) {

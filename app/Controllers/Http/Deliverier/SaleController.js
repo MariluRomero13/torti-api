@@ -10,6 +10,7 @@ const moment = use('moment')
 class SaleController {
     async store ({ request, response, auth }) {
         const { total, payment, customer_id } = request.all()
+        console.log(customer_id)
         const details = request.input('details')
         const user = await auth.getUser()
         const employee = await user.employee().first()
@@ -30,6 +31,7 @@ class SaleController {
         }
     
         const saleTotal = details.reduce((total, item) => total + +item.total, 0)
+        console.log(saleTotal)
         if (+total !== saleTotal || +payment > saleTotal) {
             return response.conflict({
                 status: false,
@@ -50,7 +52,6 @@ class SaleController {
                 })
             })
             .first()
-        
         let status  
         if(totalToPay === 0) {
             status = Sale.status.completed
@@ -135,7 +136,7 @@ class SaleController {
             .where('s.status', 2)
             .where('ac.customer_id', params.id)
 
-        return response.ok(products)
+        return response.ok({products})
     }
 
     async liquidateSale ({ request, response }) {
@@ -172,9 +173,7 @@ class SaleController {
                 status: true,
                 message: "The payment has been made"
             })    
-        }
-
-        
+        }  
     }
 
 }
