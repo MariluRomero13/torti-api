@@ -132,7 +132,7 @@ class SaleController {
             .where('s.status', 2)
             .where('ac.customer_id', params.id)
 
-        return response.ok(products)
+        return response.ok({products})
     }
 
     async liquidateSale ({ request, response }) {
