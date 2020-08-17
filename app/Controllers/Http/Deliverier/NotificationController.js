@@ -7,18 +7,27 @@ class NotificationController {
             user_id: auth.user.id,
             description: request.input('description')
         }
-        const notification = await Notification
-            .create(data)
-        const topic = Ws.getChannel('notification')
+        await Notification.create(data)
+        this.sendNotification()
+        /* const topic = Ws.getChannel('notification')
             .topic('notification')
         if(topic) {
             topic.broadcast('notification', { notification })
-        }
+        } */
 
         return response.ok({
             status: true,
             message: 'The notification was created successfully'
         })
+    }
+
+    sendNotification () {
+        const notificationTopic = Ws.getChannel('notification')
+          .topic('notification')
+    
+        if (notificationTopic) {
+          notificationTopic.broadcast('new:notification')
+        }
     }
 }
 
