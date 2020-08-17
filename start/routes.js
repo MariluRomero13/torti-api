@@ -53,12 +53,18 @@ Route.group(() => {
     [['customer.store'],['Customer/StoreUpdateCustomer']],
     [['customer.update'],['Customer/StoreUpdateCustomer']]
   ]))
+  Route.get('getpendingpaymentsdetails/:id','PendingPaymentController.getPendingPaymentsDetails')
+  Route.resource('pendingpayments','PendingPaymentController')
+  Route.get('producthasstock','ProductController.indexHasStock')
+  Route.resource('assignmentproduct','AssignmentProductController')
+  Route.get('getsaledetails/:id','SaleController.getSaleDetails')
+  Route.resource('sales','SaleController')
   Route.resource('stock','StockController').validator(new Map([
     [['stock.store'],['Stock/StoreStock']],
     [['stock.update'],['Stock/UpdateStock']]
   ]))
   Route.get('unassigned-customers', 'AssignCustomerController.getUnassignedCustomers')
-
+  Route.resource('devolutions','DevolutionController')
   // Deliveries
   Route.get('daily-deliveries', 'DeliveryController.getDailyDeliveries')
   Route.get('record-deliveries', 'DeliveryController.getRecordDeliveries')
