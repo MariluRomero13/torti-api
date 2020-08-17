@@ -11,6 +11,9 @@ class SaleController {
     async store ({ request, response, auth }) {
         const { total, payment, customer_id } = request.all()
         const details = request.input('details')
+        const user = await auth.getUser()
+        const employee = await user.employee().first()
+
     
         for (const detail of details) {
             const product = await Product.find(detail.product_id)
@@ -33,16 +36,17 @@ class SaleController {
                 message: "There are a conflict in sales"
             })
         }
-    
+        
+        console.log("id" + customer_id);
         const totalToPay = saleTotal - payment
         const today = moment().format('YYYY-MM-DD')
         const assignmentDetail = await AssignmentDetail.query()
             .where({ delivery_date: today })
-            .with('assignment', builder => {
+            .whereHas('assignment', builder => {
                 builder.where(
                 { 
-                    customer_id: customer_id, 
-                    employee_id: auth.user.id
+                    customer_id, 
+                    employee_id: employee.id
                 })
             })
             .first()
@@ -53,7 +57,6 @@ class SaleController {
         } else if (totalToPay > 0) {
             status = Sale.status.pending
         }
-        console.log(status);
         
         const pendingPayments =  await Sale.query()
             .where('status', 2)
