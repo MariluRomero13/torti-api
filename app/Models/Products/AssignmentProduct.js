@@ -17,6 +17,14 @@ class AssignmentProduct extends Model {
         return "assingments_products"
 
     }
+
+    static get store(){
+        return ['employee_id','quantity','stock_id']
+    }
+
+    static get update(){
+        return ['quantity','stock_id']
+    }
 }
 
 module.exports = AssignmentProduct

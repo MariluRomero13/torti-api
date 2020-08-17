@@ -15,6 +15,11 @@ class ProductController {
     return response.ok(products)
   }
 
+  async indexHasStock ({ response }) {
+    const products = await Product.query().has('stock').with('stock').fetch()
+    return response.ok(products)
+  }
+
   async store ({ request, response }) {
     const productData = request.only(Product.store)
     const product = await Product.create(productData)
@@ -26,15 +31,7 @@ class ProductController {
   }
 
   async update ({ params, request, response }) {
-    const productData = request.only(Product.update)
-    const product = await Product.find(params.id)
-    product.merge(productData)
-    await product.save()
-    return response.ok({
-      success: true,
-      message: 'Product updated successfully',
-      data: ''
-    })
+     
   }
 
   async destroy ({ params, response }) {
