@@ -131,10 +131,6 @@
     {
       "employee_id": 3,
       "customer_id": 2
-    },
-    {
-      "employee_id": 2,
-      "customer_id": 3
     }
   ],
   "assignCustomersDetails": [
