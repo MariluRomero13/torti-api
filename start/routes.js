@@ -74,7 +74,7 @@ Route.group(() => {
     [['deliveries.store'],['Delivery/StoreUpdateDelivery']],
     [['deliveries.update'],['Delivery/StoreUpdateDelivery']]
   ]))
-  Route.get('get-products','ProductController.getProductWithoutStock').prefix('api/')
+  Route.get('get-products','ProductController.getProductWithoutStock')
 })
 .middleware(['auth:jwt', 'cors'])
 .prefix('api/')
