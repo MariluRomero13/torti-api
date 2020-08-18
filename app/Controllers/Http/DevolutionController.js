@@ -39,6 +39,18 @@ class DevolutionController {
     return response.ok(devolutions)
 }
 
+async getDateFilteredDevolutions({params,request,response}){
+  const start_date = request.input('start_date')
+  const end_date = request.input('end_date')
+  const devolutions = await LostProduct.query()
+                                        .whereBetween(Database.raw('DATE_FORMAT(created_at, "%Y-%m-%d")'),[start_date,end_date])
+                                        .with('product')
+                                        .with('sale.assignment.assignment.employees')
+                                        .with('sale.assignment.assignment.customers')
+                                        .fetch()
+  return response.ok(devolutions)
+}
+
   /**
    * Render a form to be used for creating a new devolution.
    * GET devolutions/create

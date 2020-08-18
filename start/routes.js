@@ -58,12 +58,14 @@ Route.group(() => {
   Route.get('producthasstock','ProductController.indexHasStock')
   Route.resource('assignmentproduct','AssignmentProductController')
   Route.get('getsaledetails/:id','SaleController.getSaleDetails')
+  Route.post('getdatefilteredsales','SaleController.getDateFilteredSales')
   Route.resource('sales','SaleController')
   Route.resource('stock','StockController').validator(new Map([
     [['stock.store'],['Stock/StoreStock']],
     [['stock.update'],['Stock/UpdateStock']]
   ]))
   Route.get('unassigned-customers', 'AssignCustomerController.getUnassignedCustomers')
+  Route.post('getdatefiltereddevolutions','DevolutionController.getDateFilteredDevolutions')
   Route.resource('devolutions','DevolutionController')
   // Deliveries
   Route.get('daily-deliveries', 'DeliveryController.getDailyDeliveries')
