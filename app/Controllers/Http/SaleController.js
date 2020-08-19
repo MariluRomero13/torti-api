@@ -16,12 +16,13 @@ class SaleController {
    */
   async index ({ request, response, view }) {
     const sales = await Sale.query()
-                            .where('status',1)
+                            .where('status', 1)
+                            .orWhere('status', 3)
                             .with('assignment.assignment.customers')
                             .with('assignment.assignment.employees')
                             .fetch()
 
-    return response.ok(sales)  
+    return response.ok(sales)
   }
 
   async getSaleDetails({request, response, view,params }){
