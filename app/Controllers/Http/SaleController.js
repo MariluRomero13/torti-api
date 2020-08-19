@@ -1,7 +1,7 @@
 'use strict'
 
 
-
+const Database = use('Database')
 const Sale = use('App/Models/Sales/Sale')
 const SaleDetails = use('App/Models/Sales/SaleDetail')
 class SaleController {
@@ -32,6 +32,19 @@ class SaleController {
 
     return response.ok(details)
 
+  }
+
+  async getDateFilteredSales({request,params,response}){
+    const start_date = request.input('start_date')
+    const end_date = request.input('end_date')
+    const sales = await Sale.query()
+                            .where('status',1)
+                            .whereBetween(Database.raw('DATE_FORMAT(created_at, "%Y-%m-%d")'),[start_date,end_date])
+                            .with('assignment.assignment.customers')
+                            .with('assignment.assignment.employees')
+                            .fetch()
+
+    return response.ok(sales)
   }
 
   /**
