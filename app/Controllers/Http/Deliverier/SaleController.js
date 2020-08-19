@@ -106,12 +106,19 @@ class SaleController {
         const today = now.format()
         const monthAgo = now.subtract(1, 'months').format()
         const status = request.input('status')
+    
         const assignment = await AssignmentCustomer.query()
             .where({ customer_id: request.input('customer_id'), employee_id: auth.user.id })
             .first()
+        let arrayStatus = []
+        if(status == 1) {
+            arrayStatus = [1,3]
+        } else {
+            arrayStatus = [2]
+        }
         const sales = await Sale.query()
             .whereBetween('created_at', [ monthAgo, today ])
-            .where({ status })
+            .whereIn('status', arrayStatus)
             .whereHas('assignment', builder => {
                 builder.where({ assignments_customers_id: assignment.id })
             })
